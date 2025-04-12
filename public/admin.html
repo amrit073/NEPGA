@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - NPEGA</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .admin-table th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .admin-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .status-select {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .status-pending {
+            color: #856404;
+            background-color: #fff3cd;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .status-approved {
+            color: #155724;
+            background-color: #d4edda;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .status-rejected {
+            color: #721c24;
+            background-color: #f8d7da;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .status-processing {
+            color: #0c5460;
+            background-color: #d1ecf1;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .pagination button {
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>NPEGA Admin Dashboard</h1>
+        <p>Manage passport applications</p>
+    </header>
+    <main>
+        <!-- Login Section (shown by default) -->
+        <section id="login-section">
+            <h2>Admin Login</h2>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div id="login-error" class="error-message" style="display: none;"></div>
+                <div class="form-actions">
+                    <button type="submit" class="cta-button">Login</button>
+                </div>
+            </form>
+        </section>
+        
+        <!-- Dashboard Section (hidden by default) -->
+        <section id="dashboard-section" style="display: none;">
+            <div class="admin-header">
+                <h2>Passport Applications</h2>
+                <button id="logout-button" class="secondary-button">Logout</button>
+            </div>
+            
+            <div id="applications-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Submission Date</th>
+                            <th>Passport Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applications-table-body">
+                        <!-- Applications will be loaded here -->
+                        <tr>
+                            <td colspan="6" style="text-align: center;">Loading applications...</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button id="prev-page" disabled>Previous</button>
+                    <span id="page-info">Page 1</span>
+                    <button id="next-page">Next</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Application Details Modal -->
+        <div id="application-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+            <div style="background-color: white; margin: 10% auto; padding: 20px; width: 80%; max-width: 700px; border-radius: 8px; max-height: 80%; overflow-y: auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2>Application Details</h2>
+                    <button id="close-modal" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+                </div>
+                <div id="application-details">
+                    <!-- Application details will be loaded here -->
+                </div>
+                <div style="margin-top: 2rem;">
+                    <h3>Update Status</h3>
+                    <div class="form-group">
+                        <label for="status-update">New Status</label>
+                        <select id="status-update" class="status-select">
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <button id="update-status" class="cta-button">Update Status</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Nepal Passport E-Governance Application. All rights reserved.</p>
+    </footer>
+    
+    <script src="/static/js/admin.js"></script>
+</body>
+</html> 

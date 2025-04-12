@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Confirmation - NPEGA</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Application Submitted</h1>
+        <p>Your passport application has been received</p>
+    </header>
+    <main>
+        <section class="confirmation-section">
+            <h2>Thank You for Your Application</h2>
+            <div id="confirmation-details">
+                <p>Your application has been successfully submitted.</p>
+                <p>Application ID: <strong id="application-id">Loading...</strong></p>
+                <p>Submission Date: <span id="submission-date">Loading...</span></p>
+                <p>Status: <span id="application-status">Loading...</span></p>
+            </div>
+            
+            <div class="next-steps">
+                <h3>Next Steps</h3>
+                <ol>
+                    <li>Print this confirmation page for your records</li>
+                    <li>Visit your local passport office with your original documents</li>
+                    <li>Pay the application fee at the designated counter</li>
+                    <li>Complete biometric registration</li>
+                </ol>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="print-button" class="secondary-button">Print Confirmation</button>
+                <a href="/" class="cta-button">Return to Home</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Nepal Passport E-Governance Application. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Get application ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const applicationId = urlParams.get('id');
+            
+            if (applicationId) {
+                try {
+                    // Fetch application details
+                    const response = await fetch(`/api/passport/${applicationId}`);
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // Update the page with application details
+                        document.getElementById('application-id').textContent = data.application_id;
+                        document.getElementById('submission-date').textContent = new Date(data.submission_date).toLocaleString();
+                        document.getElementById('application-status').textContent = data.status;
+                    } else {
+                        document.getElementById('confirmation-details').innerHTML = 
+                            '<p class="error-message">Error: Could not retrieve application details.</p>';
+                    }
+                } catch (error) {
+                    console.error('Error fetching application details:', error);
+                    document.getElementById('confirmation-details').innerHTML = 
+                        '<p class="error-message">Network error. Please try again later.</p>';
+                }
+            } else {
+                document.getElementById('confirmation-details').innerHTML = 
+                    '<p class="error-message">No application ID provided. Please return to the home page.</p>';
+            }
+            
+            // Print functionality
+            document.getElementById('print-button').addEventListener('click', function() {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html> 
