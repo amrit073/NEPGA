@@ -1,0 +1,59 @@
+.status-checker {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-checker h3 {
+    margin-top: 0;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.status-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.status-form input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.status-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    display: none;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+}
+
+.status-approved {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.status-rejected {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.status-processing {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+}
+
+@media (max-width: 768px) {
+    .status-form {
+        flex-direction: column;
+    }
+} 

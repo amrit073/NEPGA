@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nepal Passport E-Governance Application (NPEGA)</title>
-<link rel="stylesheet" href="/static/css/styles.css"> 
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/status-checker.css">
 </head>
 <body>
     <header>
@@ -21,9 +22,25 @@
             <p>Start your passport registration process online with ease.</p>
             <a href="registration.html" class="cta-button">Register Now</a>
         </section>
+        <section class="status-checker">
+            <h3>Check Application Status</h3>
+            <p>Enter your application ID to check the status of your passport application.</p>
+            <div class="status-form">
+                <input type="text" id="application-id" placeholder="Enter your application ID">
+                <button id="check-status" class="secondary-button">Check Status</button>
+            </div>
+            <div id="status-error" class="error-message" style="display: none;"></div>
+            <div id="status-result" class="status-result">
+                <p><strong>Application ID:</strong> <span id="result-id"></span></p>
+                <p><strong>Submission Date:</strong> <span id="result-date"></span></p>
+                <p><strong>Status:</strong> <span id="result-status"></span></p>
+            </div>
+        </section>
     </main>
     <footer>
         <p>&copy; 2023 Nepal Passport E-Governance Application. All rights reserved.</p>
     </footer>
+    
+    <script src="/static/js/status-checker.js"></script>
 </body>
 </html>
